@@ -1,41 +1,37 @@
 ﻿var components = {
     "external-component": {
         module: "external-component",
-        html: function (name) {
-            return "http://localhost:46240/" + name + ".html";
-        },
-        files: function (name) {
-            return [
-                "http://localhost:46240/" + name + ".module.js",
-                "http://localhost:46240/" + name + ".controller.js",
-                "http://localhost:46240/" + name + ".css"
-            ];
-        }
+        isView: true,
+        html: "http://localhost:46240/external-component.html",
+        files: [
+            "http://localhost:46240/external-component.module.js",
+            "http://localhost:46240/external-component.css"
+        ]
     },
     "main-component": {
         module: "main-component",
-        html: function (name) {
-            return "main-component/" + name + ".html";
-        },
-        files: function (name) {
-            return [
-                "main-component/" + name + ".module.js",
-                "main-component/" + name + ".controller.js",
-                "main-component/" + name + ".css"
-            ];
-        }
+        isView: true,
+        html: "main-component/main-component.html",
+        files:[
+            "main-component/main-component.module.js",
+            "main-component/main-component.css"
+        ]
     }
 };
 
 
 angular.module("app", ["ngRoute", "angularWidget"])
     .config(function initializeRouteProvider($routeProvider) {
-        for (var component in components) {
-            if (components.hasOwnProperty(component)) {
-                $routeProvider.when("/" + component + "/:eatall*?", {
-                    template: "<ng-widget src=\"'" + component + "'\" delay=\"0\"></ng-widget>",
-                    reloadOnSearch: false
-                });
+        for (var componentName in components) {
+            if (components.hasOwnProperty(componentName)) {
+                var component = components[componentName];
+
+                if (component.isView) {
+                    $routeProvider.when("/" + componentName + "/:eatall*?", {
+                        template: "<ng-widget src=\"'" + componentName + "'\" delay=\"0\"></ng-widget>",
+                        reloadOnSearch: false
+                    });
+                }
             }
         }
 
@@ -48,8 +44,8 @@ angular.module("app", ["ngRoute", "angularWidget"])
             return function(name) {
                 return {
                     module: components[name].module,
-                    html: components[name].html(name),
-                    files: components[name].files(name)
+                    html: components[name].html,
+                    files: components[name].files
                 };
             };
         });

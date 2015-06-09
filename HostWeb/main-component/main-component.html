@@ -1,3 +1,9 @@
-﻿<div>
-    Hello local component
+﻿<div ng-controller="dataTable">
+    <div ng-repeat="row in data">
+        <h4>{{row.label}}</h4>
+        <h5>{{row.type}}</h5>
+        <ng-widget src="row.type" delay="0" options="row"></ng-widget>
+        <div test-directive="row"></div>
+    </div>
+    
 </div>
