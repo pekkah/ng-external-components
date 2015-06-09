@@ -1,0 +1,20 @@
+{
+  "name": "HostWeb",
+  "version": "0.0.0",
+  "authors": [
+    "Pekka Heikura <pekkah@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-route": "~1.4.0",
+    "angular-widget": "~0.1.52",
+    "angular": "~1.4.0"
+  }
+}
